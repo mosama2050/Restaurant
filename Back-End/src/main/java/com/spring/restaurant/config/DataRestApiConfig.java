@@ -21,7 +21,7 @@ public class DataRestApiConfig implements RepositoryRestConfigurer {
 //                .forDomainType(Order.class)
 //                .withItemExposure(((metdata, httpMethods) -> httpMethods.disable(preventMethod)))
 //                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(preventMethod));
-       
+
         disableHttpMethod(Category.class,config,preventMethod);
         disableHttpMethod(Order.class,config,preventMethod);
 

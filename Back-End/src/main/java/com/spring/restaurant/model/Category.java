@@ -1,4 +1,5 @@
 package com.spring.restaurant.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "category")
 public class Category extends CategoryOrder {
-
+    @JsonIgnore
     @OneToMany(mappedBy = "category") // name of opject
     private Set<Order> orders;
 }

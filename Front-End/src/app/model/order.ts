@@ -8,6 +8,7 @@ export class Order {
   price: number;
 
 
+
   constructor(id: number, name: string, data_create: Date, data_update: Date, description: string, img: string, price: number) {
     this.id = id;
     this.name = name;

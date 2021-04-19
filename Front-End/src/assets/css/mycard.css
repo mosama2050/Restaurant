@@ -7,7 +7,7 @@
 }
 
 .price {
-  color: grey;
+  color: orange;
   font-size: 22px;
 }
 
@@ -21,7 +21,7 @@
   color: saddlebrown !important;
 }
 .btn:not(:disabled):not(.disabled) {
-  margin: 20px 10px 5px;
+  margin: 10px 10px 5px;
 }
 .myorder
 {

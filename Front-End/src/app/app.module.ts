@@ -8,6 +8,7 @@ import { CategoryItemsComponent } from './componants/category-items/category-ite
 import {RouterModule, Routes} from '@angular/router';
 import { DropdownMenuComponent } from './componants/dropdown-menu/dropdown-menu.component';
 import { SearchOrderComponent } from './componants/search-order/search-order.component';
+import { OrderDetailsComponent } from './componants/order-details/order-details.component';
 
 
 // http://localhost:4200/
@@ -31,7 +32,8 @@ const routes: Routes = [
     OrderItemsComponent,
     CategoryItemsComponent,
     DropdownMenuComponent,
-    SearchOrderComponent
+    SearchOrderComponent,
+    OrderDetailsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

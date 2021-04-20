@@ -15,7 +15,11 @@ export class OrderItemsComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.finishOrders();
+    this.route.paramMap.subscribe(
+      () => {
+        this.finishOrders();
+      }
+    )
   }
   finishOrders(){
     let result = this.route.snapshot.paramMap.has('id');

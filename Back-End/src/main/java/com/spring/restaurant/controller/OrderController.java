@@ -26,7 +26,7 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
-    // http://localhost:8080/api/category?id={value}
+        // http://localhost:8080/api/category?id={value}
     @GetMapping("category")
     public List<Order> getAllOrderByCategoryId(@RequestParam Long id){
         return orderService.getOrdersByIdCategories(id);

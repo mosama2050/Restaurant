@@ -31,4 +31,9 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByCategoryId(id);
     }
 
+    @Override
+    public List<Order> getOrdersByKey(String name){
+        return orderRepository.findByNameContaining(name);
+    }
+
 }

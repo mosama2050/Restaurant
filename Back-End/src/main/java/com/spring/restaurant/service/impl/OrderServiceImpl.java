@@ -25,4 +25,10 @@ public class OrderServiceImpl implements OrderService {
         log.info("get all orders");
         return orderRepository.findAll();
     }
+
+    @Override
+    public List<Order> getOrdersByIdCategories(Long id) {
+        return orderRepository.findByCategoryId(id);
+    }
+
 }

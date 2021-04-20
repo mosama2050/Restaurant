@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { CategoryItemsComponent } from './componants/category-items/category-items.component';
 import {RouterModule, Routes} from '@angular/router';
 import { DropdownMenuComponent } from './componants/dropdown-menu/dropdown-menu.component';
+import { SearchOrderComponent } from './componants/search-order/search-order.component';
 
 
 // http://localhost:4200/
@@ -15,6 +16,8 @@ const routes: Routes = [
   {path: 'category/:id', component:OrderItemsComponent},
   // http://localhost:4200/category
   {path: 'category', component:OrderItemsComponent},
+  // http://localhost:4200/orders/key
+  {path: 'orders/:key', component:OrderItemsComponent},
   // http://localhost:4200/orders
   {path: 'orders', component:OrderItemsComponent},
   // http://localhost:4200/S
@@ -27,7 +30,8 @@ const routes: Routes = [
     AppComponent,
     OrderItemsComponent,
     CategoryItemsComponent,
-    DropdownMenuComponent
+    DropdownMenuComponent,
+    SearchOrderComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

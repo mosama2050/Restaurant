@@ -8,4 +8,5 @@ public interface OrderService {
       List<Order> getAllOrders();
       public List<Order> getOrdersByIdCategories(Long id);
       List<Order> getOrdersByKey(String name);
+      Order getOrder(Long id);
 }

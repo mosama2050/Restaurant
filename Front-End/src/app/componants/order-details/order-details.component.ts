@@ -30,4 +30,6 @@ export class OrderDetailsComponent implements OnInit {
     this.router.navigateByUrl('/orders')
   }
 
+
+
 }

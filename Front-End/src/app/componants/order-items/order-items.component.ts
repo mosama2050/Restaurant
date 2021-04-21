@@ -77,6 +77,10 @@ export class OrderItemsComponent implements OnInit {
     )
   }
 
+  pageSize(event: Event) {
+    this.pageLength = +(<HTMLInputElement>event.target).value
+    this.finishOrders()
+  }
 
   doing() {
        this.finishOrders()

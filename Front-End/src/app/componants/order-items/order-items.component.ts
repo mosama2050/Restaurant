@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Order} from '../../model/order';
 import {OrderServiceService} from '../../service/order-service.service';
 import {ActivatedRoute} from '@angular/router';
+import {CartOrder} from '../../model/cart-order';
+import {CartServiceService} from '../../service/cart-service.service';
 
 @Component({
   selector: 'app-order-items',
@@ -15,7 +17,8 @@ export class OrderItemsComponent implements OnInit {
   pageLength: number = 5; // 78    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 3
   orderSize: number = 0;
   constructor(private order: OrderServiceService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private cartService: CartServiceService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -84,5 +87,10 @@ export class OrderItemsComponent implements OnInit {
 
   doing() {
        this.finishOrders()
+  }
+
+  addToCart(temp: Order) {
+    const cartorder = new CartOrder(temp);
+    this.cartService.addOrderToCart(cartorder)
   }
 }

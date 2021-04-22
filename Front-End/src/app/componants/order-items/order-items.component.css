@@ -1,12 +1,14 @@
 .mycard{
   height: 450px;
   padding: 10px;
-
+width: 20%;
 }
 .mybtn{
-  position: absolute;
-  bottom: 0;
-  width: 250px  ;
+  /*position: absolute ;*/
+  bottom: 0px;
+  flex: auto;
+  width: 265px ;
+border-radius: 10px;
 
 }
 img{

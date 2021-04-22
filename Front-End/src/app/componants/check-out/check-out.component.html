@@ -1,13 +1,13 @@
-<div class="row">
-  <div class="col-md-8 myorder data">
+<div class="row" [formGroup]="checkoutParentGroup">
+  <div formGroupName="data" class="col-md-8 myorder data">
     <label class="myla">Your Data</label>
     <div class="input-group mb-3">
       <span class="input-group-text igt" >Full Name</span>
-      <input type="text" class="form-control" placeholder="Full Name" aria-label="Username" aria-describedby="basic-addon1">
+      <input formControlName="fullName" type="text" class="form-control" placeholder="Full Name" aria-label="Username" aria-describedby="basic-addon1">
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text igt" >Email </span>
-      <input type="text" class="form-control" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
+      <input formControlName="gmail" type="text" class="form-control" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
     </div>
 
 <!--    <div class="input-group mb-3">-->
@@ -17,16 +17,16 @@
 
     <div class="input-group mb-3">
       <span class="input-group-text igt">Phone Number</span>
-      <input type="text" class="form-control"  aria-describedby="basic-addon3" placeholder="0100100100">
+      <input formControlName="phone" type="text" class="form-control"  aria-describedby="basic-addon3" placeholder="0100100100">
     </div>
 
   </div>
 
 
-  <div class="col-md-8 myorder data">
+  <div formGroupName="fromPerson" class="col-md-8 myorder data">
     <label class="myla">From : </label>
     <div class="input-group mb-3">
-      <select class="form-select">
+      <select ormControlName="country" class="form-select">
         <option selected>Choose...</option>
         <option value="1">One</option>
         <option value="2">Two</option>
@@ -35,7 +35,7 @@
       <label class="input-group-text myin" for="inputGroupSelect02">Country</label>
     </div>
     <div class="input-group mb-3">
-      <select class="form-select" id="inputGroupSelect02">
+      <select formControlName="state" class="form-select" id="inputGroupSelect02">
         <option selected>Choose...</option>
         <option value="1">One</option>
         <option value="2">Two</option>
@@ -45,7 +45,7 @@
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text igt ">Zip Code</span>
-      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+      <input formControlName="zipCode" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
     </div>
 
   </div>
@@ -57,10 +57,10 @@
 
   </div>
 
-  <div class="col-md-8 myorder data">
+  <div formGroupName="toPerson" class="col-md-8 myorder data">
     <label class="myla">To :</label>
     <div class="input-group mb-3">
-      <select class="form-select">
+      <select formControlName="country" class="form-select">
         <option value="1">One</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
@@ -68,7 +68,7 @@
       <label class="input-group-text myin" for="inputGroupSelect02">Country</label>
     </div>
     <div class="input-group mb-3">
-      <select class="form-select" >
+      <select formControlName="state" class="form-select" >
         <option value="1">One</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
@@ -77,14 +77,35 @@
     </div>
     <div class="input-group mb-3">
       <span class="input-group-text igt" id="basic-addon3">Zip Code</span>
-      <input type="text" class="form-control" aria-describedby="basic-addon3">
+      <input formControlName="zipCode" type="text" class="form-control" aria-describedby="basic-addon3">
+    </div>
+
+  </div>
+  <div formGroupName="creditCard" class="col-md-8 myorder data">
+    <label class="myla">Card Type :</label>
+    <div class="input-group mb-3">
+      <select formControlName="cardType" class="form-select">
+        <option value="1">Visa</option>
+        <option value="2">Card</option>
+      </select>
+      <label class="input-group-text myin" for="inputGroupSelect02">Type</label>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text igt" >Card Number</span>
+      <input formControlName="cardNumber" type="text" class="form-control" aria-describedby="basic-addon3">
+    </div>
+
+    <div class="input-group mb-3">
+      <label class="input-group-text igt" for="inputGroupSelect02">Code</label>
+      <input formControlName="code" type="text" class="form-control" aria-describedby="basic-addon3">
+
     </div>
 
   </div>
 
 </div>
 <div class="check-out">
-  <div class="size">Total Order : </div>
-  <div class="totalprice">Total Price : </div>
-  <button type="button" class="btn btn-primary done">Check Out</button>
+  <div class="size">Total Order : {{totalOrder}}</div>
+  <div class="totalprice">Total Price : {{totalPrice | currency: 'USD'}}</div>
+  <button type="button" class="btn btn-primary done">Confirm</button>
 </div>

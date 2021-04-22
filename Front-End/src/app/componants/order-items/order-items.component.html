@@ -11,7 +11,7 @@
       <button (click)="addToCart(temp)" class="btn btn-primary mybtn">Add to Cart</button>
     </div>
   </div>
-  <div class="col-md-9 pag" style="padding-left: 30%">
+  <div *ngIf="orders?.length != 0" class="col-md-9 pag" style="padding-left: 30%">
     <ngb-pagination
       [(page)]="page"
       [pageSize]="pageLength"
@@ -32,4 +32,9 @@
       </select>
     </div>
   </div>
+</div>
+
+<br>
+<div *ngIf="orders?.length == 0" class="alert alert-danger" role="alert">
+  No Orders Found
 </div>

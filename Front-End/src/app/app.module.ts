@@ -12,11 +12,13 @@ import { OrderDetailsComponent } from './componants/order-details/order-details.
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { CardStatusComponent } from './componants/card-status/card-status.component';
 import { PurchasesComponent } from './componants/purchases/purchases.component';
+import { CheckOutComponent } from './componants/check-out/check-out.component';
 
 
 // http://localhost:4200/
 const routes: Routes = [
-
+  // http://localhost:4200/checkout
+  {path: 'checkout', component:CheckOutComponent},
   // http://localhost:4200/purchases
   {path: 'purchases', component:PurchasesComponent},
   // http://localhost:4200/order/id
@@ -43,7 +45,8 @@ const routes: Routes = [
     SearchOrderComponent,
     OrderDetailsComponent,
     CardStatusComponent,
-    PurchasesComponent
+    PurchasesComponent,
+    CheckOutComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

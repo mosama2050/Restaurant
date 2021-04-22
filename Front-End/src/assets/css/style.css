@@ -1133,7 +1133,7 @@ section {
   margin-top: 4px;
 }
 .btn:not(:disabled):not(.disabled) {
-  margin: 4px 0px 2px 16px !important;
+  margin: 4px 16px 2px 16px !important;
 }
 .statusCard
 {

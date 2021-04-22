@@ -1,7 +1,7 @@
 .mycard{
   height: 450px;
-  padding: 10px;
-width: 20%;
+  padding: 5px;
+
 }
 .mybtn{
   /*position: absolute ;*/
@@ -24,8 +24,8 @@ img{
   background-color: black;
   color: whitesmoke;
   border-radius: 15px;
-  padding: 18px;
-  width: 168px;
+  padding: 10px;
+  width: 158px;
   margin-left: 622px;
   margin-top: -70px;
 }

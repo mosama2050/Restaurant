@@ -1,5 +1,6 @@
 package com.spring.restaurant.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 
@@ -15,6 +16,8 @@ public class Country extends PublicData{
     @Column(name = "code")
     private String code; // EG
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "country")
     private Set<State> states;
   }

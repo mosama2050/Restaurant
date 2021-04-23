@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CartServiceService} from '../../service/cart-service.service';
+import {StateCountryServiceService} from '../../service/state-country-service.service';
+import {Country} from '../../model/country';
+import {State} from '../../model/state';
 
 @Component({
   selector: 'app-check-out',
@@ -12,12 +15,21 @@ export class CheckOutComponent implements OnInit {
   checkoutParentGroup : FormGroup;
   totalOrder: number = 0;
   totalPrice: number = 0;
-  constructor(private cart: CartServiceService,private  formChildGroup : FormBuilder) { }
+
+  countries : Country [] = [] ;
+  statesFromPerson : State [] = [] ;
+   statesToPerson : State [] = [] ;
+  constructor(private cart: CartServiceService,private  formChildGroup : FormBuilder
+  ,private  stateContry :StateCountryServiceService
+  ) { }
 
   ngOnInit(): void {
     this.myForm()
     this.getTotals()
     this.cart.calculateTotals()
+    this.getAllCountries()
+
+
   }
 
   getTotals(){
@@ -43,14 +55,14 @@ export class CheckOutComponent implements OnInit {
         }),
 
         fromPerson: this.formChildGroup.group({
-          country: ['1'],
-          state: ['1'],
-          zipCode: ['1']
+          country: [''],
+          state: [''],
+          zipCode: ['']
         }),
         toPerson: this.formChildGroup.group({
           country: [''],
           state: [''],
-          zipCode: ['3']
+          zipCode: ['']
         }),
         creditCard: this.formChildGroup.group({
           cardType: ['Visa'],
@@ -74,8 +86,39 @@ export class CheckOutComponent implements OnInit {
     if((<HTMLInputElement>event.target).checked){
       this.checkoutParentGroup.controls.toPerson
         .setValue(this.checkoutParentGroup.controls.fromPerson.value)
+      this.statesToPerson=this.statesFromPerson
     } else {
       this.checkoutParentGroup.controls.toPerson.reset()
     }
+  }
+
+  getAllCountries(){
+    this.stateContry.getAllCountry().subscribe(
+      data => {
+        this.countries = data
+      }
+    )
+  }
+
+ // getAllStates() {
+ //    this.stateContry.getAllStates().subscribe(
+ //      data => {
+ //        this.states = data
+ //      }
+ //    )
+ //  }
+  getStatesByCode(typeform : string){
+    const code = this.checkoutParentGroup.get(`${typeform}.country`).value
+
+    this.stateContry.getStatesByCode(code).subscribe(
+      data =>{
+        if(typeform==="fromPerson") {
+          this.statesFromPerson = data
+        }else{
+          this.statesToPerson = data
+        }
+        this.checkoutParentGroup.get(`${typeform}.state`).setValue(data[0])
+      }
+    )
   }
 }

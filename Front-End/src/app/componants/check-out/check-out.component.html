@@ -21,57 +21,46 @@
     </div>
 
   </div>
-
-
+  <!--///////////////////////////////////////////////////////////////////////////// fromPerson-->
   <div formGroupName="fromPerson" class="col-md-8 myorder data">
     <label class="myla">From : </label>
     <div class="input-group mb-3">
-      <select ormControlName="country" class="form-select">
-        <option selected>Choose...</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+      <select (change)="getStatesByCode('fromPerson')" formControlName="country" class="form-select">
+        <option [ngValue]="temp.code" *ngFor="let temp of countries">{{temp.name}}</option>
       </select>
       <label class="input-group-text myin" for="inputGroupSelect02">Country</label>
     </div>
     <div class="input-group mb-3">
       <select formControlName="state" class="form-select" id="inputGroupSelect02">
-        <option selected>Choose...</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option [ngValue]="temp" *ngFor="let temp of statesFromPerson">{{temp.name}}</option>
       </select>
       <label class="input-group-text myin" for="inputGroupSelect02">State</label>
     </div>
     <div class="input-group mb-3">
-      <span class="input-group-text igt ">Zip Code</span>
+      <span class="input-group-text igt">Zip Code</span>
       <input formControlName="zipCode" type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
     </div>
 
   </div>
+
   <div class="col-md-8 myorder data">
     <div class="form-check form-switch">
-      <input (change)="similarGroup($event)"class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-      <label class="form-check-label smi" for="flexSwitchCheckChecked">Order To Similar Location </label>
+      <input (change)="similarGroup($event)" class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+      <label class="form-check-label smi" for="flexSwitchCheckChecked">Similar</label>
     </div>
-
   </div>
-
+<!--///////////////////////////////////////////////////////////////////////////// to-->
   <div formGroupName="toPerson" class="col-md-8 myorder data">
     <label class="myla">To :</label>
     <div class="input-group mb-3">
-      <select formControlName="country" class="form-select">
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+      <select (change)="getStatesByCode('toPerson')" formControlName="country" class="form-select">
+        <option [ngValue]="temp.code" *ngFor="let temp of countries">{{temp.name}}</option>
       </select>
       <label class="input-group-text myin" for="inputGroupSelect02">Country</label>
     </div>
     <div class="input-group mb-3">
       <select formControlName="state" class="form-select" >
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option [ngValue]="temp" *ngFor="let temp of statesToPerson">{{temp.name}}</option>
       </select>
       <label class="input-group-text myin" >State</label>
     </div>

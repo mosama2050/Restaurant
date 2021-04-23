@@ -20,13 +20,13 @@ export class StateCountryServiceService {
       )
     )
   }
-  getAllStates(): Observable<State[]>{
-    return this.http.get<State[]>(`${this.baseUrl}states`).pipe(
-      map(
-        response => response
-      )
-    )
-  }
+  // getAllStates(): Observable<State[]>{
+  //   return this.http.get<State[]>(`${this.baseUrl}states`).pipe(
+  //     map(
+  //       response => response
+  //     )
+  //   )
+  // }
 
   getStatesByCode(code): Observable<State[]> {
     return this.http.get<State[]>(`${this.baseUrl}statescode?code=${code}`).pipe(

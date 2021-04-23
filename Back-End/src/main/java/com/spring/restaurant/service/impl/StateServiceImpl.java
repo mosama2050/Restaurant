@@ -21,4 +21,7 @@ public class StateServiceImpl  implements StateService {
     public List<State> getAllStates(){
         return stateRepository.findAll();
     }
+    public List<State> getStatesByCountryCode(String code){
+        return stateRepository.findByCountryCode(code);
+    }
 }

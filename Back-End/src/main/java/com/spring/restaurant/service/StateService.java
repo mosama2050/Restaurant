@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface  StateService {
     List<State> getAllStates();
+    List<State> getStatesByCountryCode(String code);
 }

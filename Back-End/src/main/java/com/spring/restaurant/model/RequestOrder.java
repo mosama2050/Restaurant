@@ -28,7 +28,7 @@ public class RequestOrder extends CategoryOrder{
     private int totalQuantity;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "requestOrder")
-    private Set<Item> items = new HashSet<>();
+    private List<Item> items = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "client_id")

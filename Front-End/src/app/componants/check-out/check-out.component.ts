@@ -5,6 +5,9 @@ import {StateCountryServiceService} from '../../service/state-country-service.se
 import {Country} from '../../model/country';
 import {State} from '../../model/state';
 import {SpaceValidator} from '../../model/space-validator';
+import {RequestOrder} from '../../model/request-order';
+import {Item} from '../../model/item';
+import {CartOrder} from '../../model/cart-order';
 
 @Component({
   selector: 'app-check-out',
@@ -14,15 +17,14 @@ import {SpaceValidator} from '../../model/space-validator';
 export class CheckOutComponent implements OnInit {
 
   checkoutParentGroup: FormGroup;
-  totalOrder: number = 0;
-  totalPrice: number = 0;
-
-  countries: Country [] = [];
-  statesFromPerson: State [] = [];
-  statesToPerson: State [] = [];
+  countries: Country[] = [];
+  statesFromPerson: State[] = [];
+  statesToPerson: State[] = [];
+  totalSize: number = 0;
+  totalPrice: number= 0;
 
   constructor(private cart: CartServiceService, private formChildGroup: FormBuilder
-    , private stateContry: StateCountryServiceService
+    , private stateContry: StateCountryServiceService,  private card: CartServiceService
   ) {
   }
 
@@ -38,7 +40,7 @@ export class CheckOutComponent implements OnInit {
   getTotals() {
     this.cart.totalOrders.subscribe(
       data => {
-        this.totalOrder = data;
+        this.totalSize = data;
       }
     );
     this.cart.totalPrice.subscribe(
@@ -105,10 +107,21 @@ export class CheckOutComponent implements OnInit {
     if (this.checkoutParentGroup.invalid) {
       this.checkoutParentGroup.markAllAsTouched();
     } else {
-      console.log(this.checkoutParentGroup.get('data.fullName').value);
-      console.log(this.checkoutParentGroup.get('fromPerson').value);
-      console.log(this.checkoutParentGroup.get('toPerson').value);
-      console.log(this.checkoutParentGroup.get('creditCard').value);
+      let client = this.checkoutParentGroup.controls['data'].value;
+      /* #2 */
+      let fromAddress =  this.checkoutParentGroup.controls['fromPerson'].value;
+      /* #3 */
+      let toAddress =  this.checkoutParentGroup.controls['toPerson'].value;
+      /* #4 */
+      let requestOrder = new RequestOrder();
+      requestOrder.totalPrice = this.totalPrice;
+      requestOrder.totalQuantity = this.totalSize;
+      /* #5 */
+      let items: Item[] = [];
+      let orders: CartOrder[] = this.card.orders;
+      for (let i=0;i<orders.length;i++){
+        items[i] = new Item(orders[i]);
+      }
     }
   }
 

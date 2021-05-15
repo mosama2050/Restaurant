@@ -20,4 +20,8 @@ public class Category extends CategoryOrder {
 
     @Column(name = "categorylogo")
     private String logo;
+
+    @Column(name = "name")
+    private String name;
+
 }

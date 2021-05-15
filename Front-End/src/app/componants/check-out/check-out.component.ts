@@ -12,6 +12,7 @@ import {PurchaseRequest} from '../../model/purchase-request';
 import {PurchaseServiceService} from '../../service/purchase-service.service';
 import {Client} from '../../model/client';
 import {Address} from '../../model/address';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-check-out',
@@ -27,8 +28,11 @@ export class CheckOutComponent implements OnInit {
   totalSize: number = 0;
   totalPrice: number= 0;
 
-  constructor(private card: CartServiceService, private formChildGroup: FormBuilder
-    , private stateContry: StateCountryServiceService ,private ps: PurchaseServiceService
+  constructor(private card: CartServiceService,
+              private formChildGroup: FormBuilder,
+              private stateContry: StateCountryServiceService ,
+              private ps: PurchaseServiceService,
+              private  router : Router
 
   ) {
   }
@@ -129,26 +133,33 @@ export class CheckOutComponent implements OnInit {
       requestOrder.totalPrice = this.totalPrice;
       requestOrder.totalQuantity = this.totalSize;
       /* #5 */
-      let items: Item[] = [];
+      // let items: Item[] = [];
+      // let orders: CartOrder[] = this.card.orders;
+      // for (let i=0;i<orders.length;i++){
+      //   items[i] = new Item(orders[i]);
+      // }
+      /* #5 */
       let orders: CartOrder[] = this.card.orders;
-      for (let i=0;i<orders.length;i++){
-        items[i] = new Item(orders[i]);
-      }
+      let items: Item[]  = orders.map(order => new Item(order));
+
+      /* #6 */
       let purchaseRequest = new PurchaseRequest();
       purchaseRequest.client = client;
       purchaseRequest.fromAddress = fromAddress;
       purchaseRequest.toAddress = toAddress;
       purchaseRequest.requestOrder = requestOrder;
       purchaseRequest.items = items;
-      console.log("--------------------------")
-      console.log(purchaseRequest.client)
-      console.log(purchaseRequest.fromAddress)
-      console.log(purchaseRequest.toAddress)
-      console.log(purchaseRequest.requestOrder)
-      console.log(purchaseRequest.items)
+      // console.log("--------------------------")
+      // console.log(purchaseRequest.client)
+      // console.log(purchaseRequest.fromAddress)
+      // console.log(purchaseRequest.toAddress)
+      // console.log(purchaseRequest.requestOrder)
+      // console.log(purchaseRequest.items)
       this.ps.getOrder(purchaseRequest).subscribe({
         next: response=> {
-          alert("OK")
+          alert("Your Name : " + response.name)
+          alert("Your Code : " + response.code)
+          this.clean()
         },
         error: error =>{
           console.log("Error is : " + error.message)
@@ -156,7 +167,14 @@ export class CheckOutComponent implements OnInit {
       })
     }
   }
+  clean(){
+    this.card.orders = [];
+    this.card.totalOrders.next(0);
+    this.card.totalPrice.next(0);
+    this.checkoutParentGroup.reset();
+    this.router.navigateByUrl("/orders")
 
+  }
   similarGroup(event: Event) {
     if ((<HTMLInputElement> event.target).checked) {
       this.checkoutParentGroup.controls.toPerson
@@ -175,13 +193,7 @@ export class CheckOutComponent implements OnInit {
     );
   }
 
-  // getAllStates() {
-  //    this.stateContry.getAllStates().subscribe(
-  //      data => {
-  //        this.states = data
-  //      }
-  //    )
-  //  }
+
   getStatesByCode(typeform: string) {
     const code = this.checkoutParentGroup.get(`${typeform}.country`).value;
 

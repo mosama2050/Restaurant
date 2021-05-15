@@ -8,6 +8,10 @@ import {SpaceValidator} from '../../model/space-validator';
 import {RequestOrder} from '../../model/request-order';
 import {Item} from '../../model/item';
 import {CartOrder} from '../../model/cart-order';
+import {PurchaseRequest} from '../../model/purchase-request';
+import {PurchaseServiceService} from '../../service/purchase-service.service';
+import {Client} from '../../model/client';
+import {Address} from '../../model/address';
 
 @Component({
   selector: 'app-check-out',
@@ -23,27 +27,28 @@ export class CheckOutComponent implements OnInit {
   totalSize: number = 0;
   totalPrice: number= 0;
 
-  constructor(private cart: CartServiceService, private formChildGroup: FormBuilder
-    , private stateContry: StateCountryServiceService,  private card: CartServiceService
+  constructor(private card: CartServiceService, private formChildGroup: FormBuilder
+    , private stateContry: StateCountryServiceService ,private ps: PurchaseServiceService
+
   ) {
   }
 
   ngOnInit(): void {
     this.myForm();
     this.getTotals();
-    this.cart.calculateTotals();
+    this.card.calculateTotals();
     this.getAllCountries();
 
 
   }
 
   getTotals() {
-    this.cart.totalOrders.subscribe(
+    this.card.totalOrders.subscribe(
       data => {
         this.totalSize = data;
       }
     );
-    this.cart.totalPrice.subscribe(
+    this.card.totalPrice.subscribe(
       data => {
         this.totalPrice = data;
       }
@@ -107,11 +112,18 @@ export class CheckOutComponent implements OnInit {
     if (this.checkoutParentGroup.invalid) {
       this.checkoutParentGroup.markAllAsTouched();
     } else {
-      let client = this.checkoutParentGroup.controls['data'].value;
+      let client: Client = new Client();
+      client.name = this.checkoutParentGroup.controls['data'].value.fullName;
+      client.email = this.checkoutParentGroup.controls['data'].value.gmail;
+      client.phoneNumber = this.checkoutParentGroup.controls['data'].value.phone;
+
       /* #2 */
-      let fromAddress =  this.checkoutParentGroup.controls['fromPerson'].value;
+      let fromAddress: Address =  this.checkoutParentGroup.controls['fromPerson'].value
+      fromAddress.state = fromAddress.state['name']
       /* #3 */
-      let toAddress =  this.checkoutParentGroup.controls['toPerson'].value;
+      let toAddress: Address =  this.checkoutParentGroup.controls['toPerson'].value;
+      toAddress.state = toAddress.state['name']
+
       /* #4 */
       let requestOrder = new RequestOrder();
       requestOrder.totalPrice = this.totalPrice;
@@ -122,6 +134,26 @@ export class CheckOutComponent implements OnInit {
       for (let i=0;i<orders.length;i++){
         items[i] = new Item(orders[i]);
       }
+      let purchaseRequest = new PurchaseRequest();
+      purchaseRequest.client = client;
+      purchaseRequest.fromAddress = fromAddress;
+      purchaseRequest.toAddress = toAddress;
+      purchaseRequest.requestOrder = requestOrder;
+      purchaseRequest.items = items;
+      console.log("--------------------------")
+      console.log(purchaseRequest.client)
+      console.log(purchaseRequest.fromAddress)
+      console.log(purchaseRequest.toAddress)
+      console.log(purchaseRequest.requestOrder)
+      console.log(purchaseRequest.items)
+      this.ps.getOrder(purchaseRequest).subscribe({
+        next: response=> {
+          alert("OK")
+        },
+        error: error =>{
+          console.log("Error is : " + error.message)
+        }
+      })
     }
   }
 

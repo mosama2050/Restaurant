@@ -1,5 +1,7 @@
 package com.spring.restaurant.config.springsecurity;
 
+import com.spring.restaurant.config.springsecurity.jwt.JwtAuthorizationFilter;
+import com.spring.restaurant.deo.UserRepository;
 import com.spring.restaurant.service.impl.UserserviceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +24,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private final UserserviceImpl userService;
-
+    private final UserRepository userRepository;
 
 
     @Override
@@ -31,12 +33,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // stop session for spring
                 .and()
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(),userRepository))
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers("/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+                .anyRequest().authenticated();
     }
 
     @Override

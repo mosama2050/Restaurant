@@ -1,7 +1,7 @@
 package com.spring.restaurant.controller;
 
 
-import com.spring.restaurant.config.springsecurity.jwt.JwtAuthenticationFilter;
+import com.spring.restaurant.service.TokenService;
 import com.spring.restaurant.dto.JwtLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 // http://localhost:8080
 public class UserController {
 
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private TokenService tokenService;
 
     @Autowired
-    public UserController(JwtAuthenticationFilter jwtAuthenticationFilter) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    public UserController(TokenService tokenService) {
+        this.tokenService = tokenService;
     }
 
     // http://localhost:8080/login
     @PostMapping("/login")
     public String logIn(@RequestBody JwtLogin jwtLogin){
-        return jwtAuthenticationFilter.login(jwtLogin);
+        return tokenService.login(jwtLogin);
     }
 }

@@ -2,6 +2,7 @@ package com.spring.restaurant.config.springsecurity.jwt;
 
 import com.auth0.jwt.JWT;
 import com.spring.restaurant.deo.UserRepository;
+import com.spring.restaurant.dto.JwtProperties;
 import com.spring.restaurant.dto.UserPrincipal;
 import com.spring.restaurant.model.User;
 

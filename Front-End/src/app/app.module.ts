@@ -14,10 +14,16 @@ import { CardStatusComponent } from './componants/card-status/card-status.compon
 import { PurchasesComponent } from './componants/purchases/purchases.component';
 import { CheckOutComponent } from './componants/check-out/check-out.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {LoginComponent} from './componants/login/login.component';
+import { SignupComponent } from './componants/signup/signup.component';
 
 
 // http://localhost:4200/
 const routes: Routes = [
+  // http://localhost:4200/signup
+  {path: 'signup', component:SignupComponent},
+  // http://localhost:4200/login
+  {path: 'login', component:LoginComponent},
   // http://localhost:4200/checkout
   {path: 'checkout', component:CheckOutComponent},
   // http://localhost:4200/purchases
@@ -47,7 +53,8 @@ const routes: Routes = [
     OrderDetailsComponent,
     CardStatusComponent,
     PurchasesComponent,
-    CheckOutComponent
+    CheckOutComponent,
+    SignupComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

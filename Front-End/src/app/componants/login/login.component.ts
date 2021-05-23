@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {AuthenticationServiceService} from '../../service/security/authentication-service.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,8 +12,9 @@ export class LoginComponent implements OnInit {
 
   loginParentGroup: FormGroup;
 
-  constructor(private formChildGroup: FormBuilder) { }
-
+  constructor(private formChildGroup: FormBuilder,
+              private auth :AuthenticationServiceService,
+              private router: Router) { }
   ngOnInit(): void {
     this.myFormLogin()
   }
@@ -27,7 +30,17 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    alert(this.loginParentGroup.controls['user'].value.email)
-    alert(this.loginParentGroup.controls['user'].value.password)
+    this.auth.executeAuthentication(
+      this.loginParentGroup.controls['user'].value.email,
+      this.loginParentGroup.controls['user'].value.password
+    ).subscribe({
+      next: response =>{
+        this.router.navigateByUrl("/orders");
+
+      },
+      error: er=> {
+        console.log("Invalid Email or Password")
+      }
+    })
   }
 }

@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
 public class UserserviceImpl implements  UserDetailsService {
@@ -20,5 +22,10 @@ public class UserserviceImpl implements  UserDetailsService {
         User user = userRepository.findByEmail(email);
         UserPrincipal userPrincipal = new UserPrincipal(user);
         return userPrincipal;
+    }
+
+    @Transactional
+    public void addUser(User user){
+        userRepository.save(user);
     }
 }

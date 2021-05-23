@@ -21,4 +21,14 @@ export class AuthenticationServiceService {
       )
     )
   }
+
+  createUser(email,password):Observable<any>{
+    return this.http.post<any>(`${this.baseUrl}signup`,{email,password}).pipe(
+      map(
+        response => {
+          return response;
+        }
+      )
+    )
+  }
 }

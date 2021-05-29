@@ -41,4 +41,12 @@ export class AuthenticationServiceService {
       return sessionStorage.getItem('token')
     }
   }
+  isLogin(){
+    return !(sessionStorage.getItem('email') == null ||
+      sessionStorage.getItem('token') == null);
+  }
+  logOut(){
+    sessionStorage.removeItem('email');
+    sessionStorage.removeItem('token');
+  }
 }

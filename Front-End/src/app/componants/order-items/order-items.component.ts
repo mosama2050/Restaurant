@@ -4,6 +4,7 @@ import {OrderServiceService} from '../../service/order-service.service';
 import {ActivatedRoute} from '@angular/router';
 import {CartOrder} from '../../model/cart-order';
 import {CartServiceService} from '../../service/cart-service.service';
+import {AuthenticationServiceService} from '../../service/security/authentication-service.service';
 
 @Component({
   selector: 'app-order-items',
@@ -18,7 +19,8 @@ export class OrderItemsComponent implements OnInit {
   orderSize: number = 0;
   constructor(private order: OrderServiceService,
               private route: ActivatedRoute,
-              private cartService: CartServiceService) { }
+              private cartService: CartServiceService,
+              private  auth : AuthenticationServiceService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -92,5 +94,11 @@ export class OrderItemsComponent implements OnInit {
   addToCart(temp: Order) {
     const cartorder = new CartOrder(temp);
     this.cartService.addOrderToCart(cartorder)
+  }
+
+
+
+  isAuthenticatedUser(){
+    return this.auth.isLogin();
   }
 }

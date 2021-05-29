@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoryServiceService} from '../../service/category-service.service';
 import {Category} from '../../model/category';
+import {AuthenticationServiceService} from '../../service/security/authentication-service.service';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -11,7 +12,8 @@ export class DropdownMenuComponent implements OnInit {
 
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryServiceService) { }
+  constructor(private categoryService: CategoryServiceService,
+              private auth: AuthenticationServiceService) { }
 
   ngOnInit(): void {
     this.getAllCategories();
@@ -24,7 +26,9 @@ export class DropdownMenuComponent implements OnInit {
       }
     )
   }
-
+  isAuth(){
+    return this.auth.isLogin()
+  }
 
 
 }

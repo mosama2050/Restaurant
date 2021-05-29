@@ -7,7 +7,7 @@
 <!--  <li><a href="#contact"><i class="c"></i>Other Food</a></li>-->
 
 <!--</ul>-->
-<ul>
+<ul *ngIf="isAuth">
 
   <li routerLinkActive="active" ><a routerLink="/orders"><i class="bx bx-home"></i> <span>Home</span></a></li>
 

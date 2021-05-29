@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { OrderItemsComponent } from './componants/order-items/order-items.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { CategoryItemsComponent } from './componants/category-items/category-items.component';
 import {RouterModule, Routes} from '@angular/router';
 import { DropdownMenuComponent } from './componants/dropdown-menu/dropdown-menu.component';
@@ -16,6 +16,7 @@ import { CheckOutComponent } from './componants/check-out/check-out.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { SignupComponent } from './componants/signup/signup.component';
 import {LoginComponent} from './componants/login/login.component';
+import {HttpIntercepterService} from './service/security/http-intercepter.service';
 
 
 // http://localhost:4200/
@@ -66,7 +67,7 @@ const routes: Routes = [
     // NgModule
   ],
   providers: [
-
+    {provide: HTTP_INTERCEPTORS,useClass: HttpIntercepterService,multi: true}
   ],
   bootstrap: [AppComponent]
 })

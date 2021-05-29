@@ -16,6 +16,8 @@ export class AuthenticationServiceService {
     return this.http.post<any>(`${this.baseUrl}login`,{email,password}).pipe(
       map(
         response => {
+          sessionStorage.setItem("email",response.email)
+          sessionStorage.setItem("token",`Bearer ${response.token}`)
           return response;
         }
       )
@@ -30,5 +32,13 @@ export class AuthenticationServiceService {
         }
       )
     )
+  }
+  getAuthentication(){
+    return sessionStorage.getItem("email");
+  }
+  getToken(){
+    if(this.getAuthentication()){ //
+      return sessionStorage.getItem('token')
+    }
   }
 }
